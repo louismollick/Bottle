@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
+import { StyleSheet, Button } from 'react-native';
 import { Text, View } from '../components/Themed';
 
-export default function TabTwoScreen() {
+export default function Home({ navigation }: { navigation: any }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
+      <Text style={styles.title}>Home</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <Button title="I want to send out a bottle" onPress={() => navigation.navigate('Say')} />
+      <Button title="I want to pick up a bottle" onPress={() => navigation.navigate('ListenTagSelect')} />
     </View>
   );
 }

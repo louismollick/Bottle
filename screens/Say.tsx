@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
+import { StyleSheet, Button } from 'react-native';
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function Say({ navigation }: { navigation: any }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
+      <Text style={styles.title}>Say</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <Button title="Back" onPress={() => navigation.goBack()} />
+      <Button title="Start Recording" onPress={() => console.log("Start Recording now")} />
+      {/* Here we need to update the buttons w/ the playback, redo, cancel, and next buttons once recording is done */}
     </View>
   );
 }
