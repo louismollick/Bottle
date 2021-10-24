@@ -19,9 +19,9 @@ http://www.cim.mcgill.ca/~jer/courses/hci/project/2021/www.cs.mcgill.ca/~lmolli/
 - Once the app is downloaded, open your smartphone's camera and scan the QR code. It should prompt you to open a link in Expo Go.
 - Use the app, glhf
 
-### Todo (as of 19/10/2021)
+### Todo (updated 23/10/2021)
 - ListenTagSelect:
-    - make checkbox list of different feelings, save in component state.
+    - ~~make checkbox list of different feelings, save in component state.~~
     - pass state "Listen" screen through the navigation.navigate('Listen', < put state here >) when the user clicks "Next" button.
 - Listen:
     - receive tags from previous screen (useEffect hook) & store in component state.
