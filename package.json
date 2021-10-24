@@ -16,16 +16,26 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-aria/ssr": "^3.1.0",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
+    "@react-stately/checkbox": "^3.0.3",
+    "@react-stately/collections": "^3.3.4",
+    "@react-stately/slider": "^3.0.3",
+    "@react-stately/tabs": "^3.0.1",
+    "@react-stately/toggle": "^3.2.3",
     "expo": "~42.0.0",
+    "expo-splash-screen": "^0.13.4",
     "expo-status-bar": "~1.0.4",
-    "native-base": "3.2.1",
+    "native-base": "^3.2.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-safe-area-context": "3.2.0",
+    "react-native-screens": "~3.4.0",
     "react-native-svg": "12.1.1",
     "react-native-web": "~0.13.12",
-    "styled-components": "^5.3.0",
+    "styled-components": "^5.3.3",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
