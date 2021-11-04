@@ -11,7 +11,7 @@ export default function ListenTagSelect({ navigation }: { navigation: any }) {
         colorScheme="green"
         accessibilityLabel="pick an item"
         onChange={(values) => {
-          setTags(tags || [])
+          setTags(values || [])
         }}
       >
         <Checkbox value="Happy" my="1">
@@ -38,7 +38,7 @@ export default function ListenTagSelect({ navigation }: { navigation: any }) {
       </Checkbox.Group>
       <HStack w="100%" space={3} alignItems="center" justifyContent="space-around" >
         <Button onPress={() => navigation.goBack()}>Back</Button>
-        <Button onPress={() => navigation.navigate('Listen')}>Next</Button>
+        <Button onPress={() => navigation.navigate('Listen', tags)}>Next</Button>
       </HStack>
     </Center>
   );
