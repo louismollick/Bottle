@@ -10,6 +10,28 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
   const [bottle, setBottle] = useState<Audio.Sound | undefined>(undefined);
   const audioPaths: string[] = route.params;
 
+  useFocusEffect(
+    useCallback(() => {
+      if (!bottle) {
+        Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+          staysActiveInBackground: false,
+          interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+          playsInSilentModeIOS: true,
+          shouldDuckAndroid: true,
+          interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+          playThroughEarpieceAndroid: false
+        });
+        loadNewBottle(); // plays bottle automatically
+      }
+
+      return bottle ? () => {
+        console.log('Unloading Sound on Blur');
+        bottle.unloadAsync();
+      } : undefined;
+    }, [bottle])
+  );
+
   const loadNewBottle = async () => {
     if (bottle) {
       console.log('Unloading Sound on load');
@@ -32,45 +54,22 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
   };
 
   const onNextBottlePressed = async () => {
-    if (bottle) {
-      index.current++;
-      loadNewBottle();
-    }
+    console.log('here');
+    if (!bottle) return;
+    index.current++;
+    loadNewBottle();
   };
 
   const onPlayPausePressed = () => {
-    if (bottle) {
-      if (playing) {
-        bottle.pauseAsync();
-        setPlaying(false);
-      } else {
-        bottle.playAsync();
-        setPlaying(true);
-      }
+    if (!bottle) return;
+    if (playing) {
+      bottle.pauseAsync();
+      setPlaying(false);
+    } else {
+      bottle.playAsync();
+      setPlaying(true);
     }
   };
-
-  useFocusEffect(
-    useCallback(() => {
-      if (!bottle) {
-        Audio.setAudioModeAsync({
-          allowsRecordingIOS: false,
-          staysActiveInBackground: false,
-          interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-          playsInSilentModeIOS: true,
-          shouldDuckAndroid: true,
-          interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-          playThroughEarpieceAndroid: false
-        });
-        loadNewBottle(); // plays bottle automatically
-      }
-
-      return bottle ? () => {
-        console.log('Unloading Sound on Blur');
-        bottle.unloadAsync();
-      } : undefined;
-    }, [bottle])
-  );
 
   return (
     <Center flex={1}>
