@@ -60,9 +60,13 @@ export default function Say({ navigation }: { navigation: any }) {
       console.log('startRecording called');
       setIsRecording(true);
 
-      await Audio.setAudioModeAsync({
+      Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
+        staysActiveInBackground: false,
         playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        playThroughEarpieceAndroid: false
       });
       const { recording: rec } = await Audio.Recording.createAsync(
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY,
@@ -81,7 +85,6 @@ export default function Say({ navigation }: { navigation: any }) {
     if (!recording.current) return;
 
     console.log('Stopping recording...');
-    setIsRecording(false);
     await recording.current.stopAndUnloadAsync();
 
     const uri = recording.current.getURI();
@@ -102,6 +105,7 @@ export default function Say({ navigation }: { navigation: any }) {
     );
     playback.current = sound;
     console.log('Playback loaded');
+    setIsRecording(false);
   }
 
   const onPlaybackStatusUpdate = (status: AVPlaybackStatus) => {
@@ -189,7 +193,7 @@ export default function Say({ navigation }: { navigation: any }) {
             </>
             :
             <IconButton w="125" h="100" mx="auto" mb="40" onPress={isRecording ? stopRecording : startRecording}
-              iconLibrary={MaterialCommunityIcons} iconName={"record-circle"}>
+              iconLibrary={MaterialCommunityIcons} iconName={"record-circle"} color={isRecording ? "red.600" : ""}>
               {isRecording ? "Stop Recording" : "Start Recording"}
             </IconButton>
           }
