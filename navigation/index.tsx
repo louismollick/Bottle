@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeBaseProvider } from "native-base";
+import { extendTheme, NativeBaseProvider } from "native-base";
 import Home from '../screens/Home';
 import Say from '../screens/Say';
 import Listen from '../screens/Listen';
@@ -15,10 +15,35 @@ import SayTagSelect from '../screens/SayTagSelect';
 
 const Stack = createNativeStackNavigator();
 
+const theme = extendTheme({
+  components: {
+    Button: {
+      defaultProps: {
+        _text: {
+          fontSize: 20,
+          textAlign: "center",
+          color: "white",
+          fontWeight: "medium",
+        }
+      },
+    },
+    Checkbox: {
+      defaultProps: {
+        _text: {
+          fontSize: 20,
+          textAlign: "center",
+          color: "gray.800",
+          fontWeight: "medium",
+        }
+      },
+    }
+  }
+});
+
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <NativeBaseProvider>
+      <NativeBaseProvider theme={theme}>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
           <Stack.Screen name="Say" component={Say} options={{ headerShown: false }} />
@@ -27,7 +52,7 @@ export default function Navigation() {
           <Stack.Screen name="Listen" component={Listen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NativeBaseProvider>
-    </NavigationContainer>
+    </NavigationContainer >
   );
 }
 
