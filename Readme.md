@@ -1,5 +1,9 @@
 # Bottle
-## ECSE424 Group 11 - Fall 2021
+## ECSE424 Group 11 - McGill Univeristy - Fall 2021
+
+Bottle is an anonymous audio-based venting platform to help social-media users express their thoughts and feelings without the pressures of maintaining their appearance or image. The idea is to mimic and recreate the experience of pouring your heart out in a letter, putting it in a bottle, and tossing it into the ocean for someone to find one day.
+
+On this platform, users are able to record and share audio messages or “bottles” and anonymously share them with all other users of the system. On the other hand, users are also able to listen to audio messages shared by other random users.
 
 #### Notebook: 
 http://www.cim.mcgill.ca/~jer/courses/hci/project/2021/www.cs.mcgill.ca/~lmolli/hci/notebook/
@@ -18,27 +22,3 @@ http://www.cim.mcgill.ca/~jer/courses/hci/project/2021/www.cs.mcgill.ca/~lmolli/
 - Now on your smartphone, go download the "Expo Go" application (iOS and Android): https://expo.dev/client
 - Once the app is downloaded, open your smartphone's camera and scan the QR code. It should prompt you to open a link in Expo Go.
 - Use the app, glhf
-
-### Todo (updated 23/10/2021)
-- ListenTagSelect:
-    - ~~make checkbox list of different feelings, save in component state.~~
-    - pass state "Listen" screen through the navigation.navigate('Listen', < put state here >) when the user clicks "Next" button.
-- Listen:
-    - receive tags from previous screen (useEffect hook) & store in component state.
-    - add audio files to app, load the correct one into component depending on tag
-    - play/pause button
-    - nextBottle button does a little animation & either plays the same recording again, or says "No more bottles for those tags" and sends user back to the tag selection screen.
-- Say:
-    - Figure out how to request microphone permissions on phone
-    - When "Start recording" is pressed, start the recording, display "Stop recording" button and remove back button
-    - When "Stop recording" is pressed, display "Cancel", "Redo", "Next" and "Play back" buttons.
-    - "Cancel" button should send back to home & wipe the stack (exactly like "Home" button on Listen screen)
-    - "Redo" should discard the stored recording, display "Start recording" button
-    - "Play back" should play the temporary recording, and have same Play/Pause functionality as Listen screen
-    - "Next" does navigation.navigate('SayTagSelect') -- though doens't need to do anything else really rn
-- SayTagSelect:
-    - Have one dropdown/select=checkbox list of different feelings "Select feelings..."
-    - Have button "Add another feeling" that adds another dropdown/select=checkbox component under it, up to 5-ish
-    - Doesn't need to save to state right now
-
-
