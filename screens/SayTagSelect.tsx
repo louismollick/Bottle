@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Center, Heading, FormControl, Checkbox, VStack, HStack, WarningOutlineIcon, ScrollView, Box } from 'native-base';
+import { Center, HStack } from 'native-base';
 import Constants from 'expo-constants';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import IconButton from '../components/IconButton';
@@ -8,6 +8,14 @@ import TagSelect from '../components/TagSelect';
 
 export default function SayTagSelect({ navigation }: { navigation: any }) {
   const [tags, setTags] = useState<string[]>([]);
+
+  const onSendBottle = () => {
+    navigation.reset({
+      index: 0,
+      routes: [
+        { name: 'Home', params: { bottleSent: true } }]
+    });
+  }
 
   return (
     <Center flex={1} px="5" py={Constants.statusBarHeight} alignItems="center" justifyContent="flex-end">
@@ -25,7 +33,7 @@ export default function SayTagSelect({ navigation }: { navigation: any }) {
           iconLibrary={MaterialCommunityIcons} iconName="arrow-left-bold">
           {"Back"}
         </IconButton>
-        <IconButton onPress={() => navigation.navigate('Home')} isDisabled={tags.length <= 0}
+        <IconButton onPress={onSendBottle} isDisabled={tags.length <= 0}
           iconLibrary={MaterialCommunityIcons} iconName="send">
           {"Send Bottle!"}
         </IconButton>

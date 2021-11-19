@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { Heading, FormControl, Checkbox, WarningOutlineIcon, ScrollView, Box } from 'native-base';
+import BottleTags from '../utils/bottleTags';
+import { enumKeys } from '../utils/utils';
 
 interface TagSelectProps {
-    setTags: (tags: string[]) => void, 
+    setTags: (tags: string[]) => void;
     children:
     | JSX.Element
     | JSX.Element[]
     | string
     | string[];
+    setError: (state: boolean) => void;
+    error: boolean
 }
 
-const TagSelect = ({ setTags, children }: TagSelectProps) => {
-    const [error, setError] = useState(false);
+const TagSelect = ({ setTags, children, setError, error }: TagSelectProps) => {
 
     return (
         <FormControl isInvalid={error} flexShrink={1} py={5}>
@@ -30,30 +33,14 @@ const TagSelect = ({ setTags, children }: TagSelectProps) => {
                         accessibilityLabel="pick a tag"
                         onChange={(values) => {
                             setTags(values || []);
-                            if (values.length > 0)
+                            if (values.length > 0 && setError)
                                 setError(false);
                         }}>
-                        <Checkbox value="Happy" my="3">
-                            Happy
-                        </Checkbox>
-                        <Checkbox value="Silly" my="3">
-                            Silly
-                        </Checkbox>
-                        <Checkbox value="Bored" my="3">
-                            Bored
-                        </Checkbox>
-                        <Checkbox value="Angry" my="3">
-                            Angry
-                        </Checkbox>
-                        <Checkbox value="Sad" my="3">
-                            Sad
-                        </Checkbox>
-                        <Checkbox value="Anxious" my="3">
-                            Anxious
-                        </Checkbox>
-                        <Checkbox value="Scared" my="3">
-                            Scared
-                        </Checkbox>
+                        {enumKeys(BottleTags).map((value, i) =>
+                            <Checkbox value={BottleTags[value]} key={i} my="3">
+                                {BottleTags[value]}
+                            </Checkbox>)
+                        }
                     </Checkbox.Group>
                 </ScrollView>
             </Box>

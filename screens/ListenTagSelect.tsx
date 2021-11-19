@@ -11,23 +11,20 @@ export default function ListenTagSelect({ navigation }: { navigation: any }) {
   const [error, setError] = useState(false);
 
   const onNextPressed = () => {
-    if (tags.length > 0) {
-      navigation.navigate('Listen', tags);
-    } else {
-      setError(true);
-    }
+    if (tags.length > 0) navigation.navigate('Listen', tags);
+    else setError(true);
   };
 
   return (
     <Center flex={1} px="5" py={Constants.statusBarHeight}>
       <VStack w="100%" h="100%" alignItems="center" justifyContent="flex-end">
-        <TagSelect setTags={setTags} >
+        <TagSelect setTags={setTags} error={error} setError={setError}>
           {"What kind of Bottle would you like to open?"}
         </TagSelect>
         <HStack w="100%" justifyContent="space-between">
           <IconButton onPress={() => navigation.goBack()}
-            iconLibrary={MaterialCommunityIcons} iconName="arrow-left-bold">
-            {"Back"}
+            iconLibrary={MaterialCommunityIcons} iconName="home">
+            {"Home"}
           </IconButton>
           <IconButton onPress={onNextPressed}
             iconLibrary={MaterialCommunityIcons} iconName="arrow-right-bold">

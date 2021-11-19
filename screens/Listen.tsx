@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { Center, HStack, VStack } from 'native-base';
+import { Box, Center, Heading, HStack, VStack } from 'native-base';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons"
 import Constants from 'expo-constants';
-import audioFiles from '../utils/audioFiles';
+import bottleDB, { IBottle } from '../utils/bottleDB';
 import IconButton from '../components/IconButton';
 
 export default function Listen({ route, navigation }: { route: any, navigation: any }) {
@@ -12,7 +12,11 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
   const [replayable, setReplayable] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [bottle, setBottle] = useState<Audio.Sound | undefined>(undefined);
-  const audioPaths: string[] = route.params;
+  const tagsSelected: string[] = route.params;
+
+  const bottlePlaylist = bottleDB.filter(bottle =>
+    bottle.tags.some(tag => tagsSelected.includes(tag))
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -27,13 +31,18 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
         });
         loadBottle(); // plays bottle automatically
       }
-
       return bottle ? () => {
         console.log('Unloading Sound on Blur');
         bottle.unloadAsync();
       } : undefined;
     }, [bottle])
   );
+
+  // useEffect(() => setBottlePlaylist(
+  //   bottleDB.filter(bottle =>
+  //     bottle.tags.some(tag => tagsSelected.includes(tag))
+  //   )
+  // ), [route])
 
   const loadBottle = async () => {
     if (bottle) {
@@ -42,7 +51,7 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
     }
     console.log("New index: ", index.current);
     const { sound } = await Audio.Sound.createAsync(
-      audioFiles[audioPaths[index.current]], // { uri: PLAYLIST[this.index].uri }; Use this once we put the audios on AWS
+      bottlePlaylist[index.current].file,
       { shouldPlay: true },
       onPlaybackStatusUpdate
     );
@@ -61,7 +70,7 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
 
   const onNextBottlePressed = () => {
     console.log("nextBottle");
-    if (index.current >= audioPaths.length - 1) return;
+    if (index.current >= bottlePlaylist.length - 1) return;
     index.current++;
     loadBottle();
   };
@@ -110,6 +119,10 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
             {"Tags"}
           </IconButton>
         </HStack>
+        <Box my="auto" alignItems="center">
+          <Heading>Current Bottle tags:</Heading>
+          <Heading>{bottlePlaylist[index.current].tags.join(', ')}</Heading>
+        </Box>
         {replayable ?
           <IconButton onPress={onReplayPressed}
             iconLibrary={FontAwesome} iconName="repeat">
@@ -126,7 +139,7 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
             iconLibrary={MaterialCommunityIcons} iconName="arrow-left-bold">
             {"Prev Bottle"}
           </IconButton>
-          <IconButton onPress={onNextBottlePressed} isDisabled={index.current >= audioPaths.length - 1}
+          <IconButton onPress={onNextBottlePressed} isDisabled={index.current >= bottlePlaylist.length - 1}
             iconLibrary={MaterialCommunityIcons} iconName="arrow-right-bold">
             {"Next Bottle"}
           </IconButton>

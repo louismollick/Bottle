@@ -1,7 +1,21 @@
-import * as React from 'react';
-import { Heading, Button, Center, HStack } from 'native-base';
+import React, { useState, useRef, useCallback } from 'react';
+import { Icon, Heading, Button, Center, HStack, AlertDialog } from 'native-base';
+import { MaterialCommunityIcons } from "@expo/vector-icons"
+import { useFocusEffect } from '@react-navigation/native';
 
-export default function Home({ navigation }: { navigation: any }) {
+export default function Home({ route, navigation }: { route: any, navigation: any }) {
+  const [isSentConfirmationOpen, setIsSentConfirmationOpen] = useState(false);
+  const onCloseConfirmation = () => setIsSentConfirmationOpen(false);
+  const cancelRef = useRef(null);
+
+  useFocusEffect(useCallback(() => {
+    if (route?.params?.bottleSent) {
+      console.log("Resetting params...")
+      setIsSentConfirmationOpen(true);
+      navigation.setParams({ bottleSent: false });
+    }
+  }, [route]));
+
   return (
     <Center flex={1} px={3} justifyContent="center" alignItems="center">
       <Heading fontSize="5xl" textAlign="center" mb="20">Bottle</Heading>
@@ -15,6 +29,24 @@ export default function Home({ navigation }: { navigation: any }) {
           {"I want to pick up a bottle"}
         </Button>
       </HStack>
+      <AlertDialog
+        leastDestructiveRef={cancelRef}
+        isOpen={isSentConfirmationOpen}
+        onClose={onCloseConfirmation}
+      >
+        <AlertDialog.Content>
+          {/* <AlertDialog.CloseButton /> */}
+          <AlertDialog.Header alignItems="center">
+            <Icon as={MaterialCommunityIcons} name="send" color="coolGray.800" alignSelf="center" />
+            Bottle Sent!
+          </AlertDialog.Header>
+          <AlertDialog.Footer>
+            <Button onPress={onCloseConfirmation} ref={cancelRef} flex="1">
+              {"OK"}
+            </Button>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog>
     </Center>
   );
 }

@@ -27,7 +27,7 @@ const theme = extendTheme({
         _text: {
           fontSize: 20,
           textAlign: "center",
-          color: "gray.800",
+          color: "coolGray.800",
           fontWeight: "medium",
         }
       },

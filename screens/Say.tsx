@@ -193,7 +193,7 @@ export default function Say({ navigation }: { navigation: any }) {
             </>
             :
             <IconButton w="125" h="100" mx="auto" mb="40" onPress={isRecording ? stopRecording : startRecording}
-              iconLibrary={MaterialCommunityIcons} iconName={"record-circle"} color={isRecording ? "red.600" : ""}>
+              iconLibrary={MaterialCommunityIcons} iconName={"record-circle"} color={isRecording ? "error.500" : ""}>
               {isRecording ? "Stop Recording" : "Start Recording"}
             </IconButton>
           }
