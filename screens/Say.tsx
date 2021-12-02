@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Center, Heading, VStack, HStack } from 'native-base';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import { RecordingStatus } from 'expo-av/build/Audio';
+import { useFocusEffect } from '@react-navigation/native';
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons"
 import Constants from 'expo-constants';
 import IconButton from '../components/IconButton';
@@ -21,6 +22,12 @@ export default function Say({ navigation }: { navigation: any }) {
   const [replayable, setReplayable] = useState(false);
   const [isPlayingBack, setIsPlayingBack] = useState(false);
   const [audioStatus, setAudioStatus] = useState<AVPlaybackStatus | undefined>()
+
+  useFocusEffect(useCallback(() => {
+    return () => {
+      playOrPause(false);
+    };
+  }, []));
 
   useEffect(() => {
     if (!hasPerms) requestPerms();

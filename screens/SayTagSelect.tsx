@@ -8,13 +8,21 @@ import TagSelect from '../components/TagSelect';
 
 export default function SayTagSelect({ navigation }: { navigation: any }) {
   const [tags, setTags] = useState<string[]>([]);
+  const [error, setError] = useState(false);
+
+  const onNextPressed = () => {
+    if (tags.length > 0) navigation.navigate('Listen', tags);
+    else setError(true);
+  };
 
   const onSendBottle = () => {
-    navigation.reset({
-      index: 0,
-      routes: [
-        { name: 'Home', params: { bottleSent: true } }]
-    });
+    if (tags.length > 0)
+      navigation.reset({
+        index: 0,
+        routes: [
+          { name: 'Home', params: { bottleSent: true } }]
+      });
+    else setError(true);
   }
 
   return (
@@ -25,7 +33,7 @@ export default function SayTagSelect({ navigation }: { navigation: any }) {
           {"Home"}
         </IconButton>
       </HStack>
-      <TagSelect setTags={setTags} >
+      <TagSelect setTags={setTags} error={error} setError={setError}>
         {"Select some tags for your bottle"}
       </TagSelect>
       <HStack w="100%" justifyContent="space-between">

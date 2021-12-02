@@ -17,7 +17,7 @@ const theme = extendTheme({
         _text: {
           fontSize: 20,
           textAlign: "center",
-          color: "white",
+          color: "coolGray.700",
           fontWeight: "medium",
         }
       },
@@ -31,7 +31,7 @@ const theme = extendTheme({
           fontWeight: "medium",
         }
       },
-    }
+    },
   }
 });
 

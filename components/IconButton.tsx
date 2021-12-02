@@ -22,7 +22,7 @@ const IconButton = ({ w, h, mb, mx, iconLibrary, iconName, onPress, isDisabled, 
   return (<Button
     w={w || "75"} h={h || "75"} mb={mb} mx={mx} onPress={onPress} p="0"
     isDisabled={isDisabled} _text={{ lineHeight: 20 }}>
-    <Icon as={iconLibrary} name={iconName} color={color || "white"} alignSelf="center" />
+    <Icon as={iconLibrary} name={iconName} color={color || "coolGray.700"} alignSelf="center" />
     {children}
   </Button >);
 }
