@@ -4,8 +4,9 @@ import { Box, Center, Heading, HStack, VStack } from 'native-base';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons"
 import Constants from 'expo-constants';
-import bottleDB, { IBottle } from '../utils/bottleDB';
+import bottleDB from '../utils/bottleDB';
 import IconButton from '../components/IconButton';
+import FilledBottleIcon from '../components/FilledBottleIcon'
 
 export default function Listen({ route, navigation }: { route: any, navigation: any }) {
   const index = useRef(0);
@@ -107,7 +108,7 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
   };
 
   return (
-    <Center flex={1} px="5" py={Constants.statusBarHeight}>
+    <Center flex={1} px="5" py={Constants.statusBarHeight} bg="#fff8d2">
       <VStack w="100%" h="100%" alignItems="center" justifyContent="flex-end">
         <HStack w="100%" justifyContent="space-between" mt="5" mb="auto">
           <IconButton onPress={() => navigation.navigate('Home')}
@@ -120,6 +121,7 @@ export default function Listen({ route, navigation }: { route: any, navigation: 
           </IconButton>
         </HStack>
         <Box my="auto" alignItems="center">
+          <FilledBottleIcon size="5xl" />
           <Heading>Current Bottle tags:</Heading>
           <Heading>{bottlePlaylist[index.current].tags.join(', ')}</Heading>
         </Box>

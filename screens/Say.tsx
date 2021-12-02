@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Center, Heading, VStack, HStack } from 'native-base';
+import { Center, Heading, VStack, HStack, Box } from 'native-base';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import { RecordingStatus } from 'expo-av/build/Audio';
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons"
 import Constants from 'expo-constants';
 import IconButton from '../components/IconButton';
+import EmptyBottleIcon from '../components/EmptyBottleIcon';
 
 const MAX_RECORDING_LENGTH = 600000; // 10 minutes in ms
 
@@ -67,7 +68,7 @@ export default function Say({ navigation }: { navigation: any }) {
       console.log('startRecording called');
       setIsRecording(true);
 
-      Audio.setAudioModeAsync({
+      await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         staysActiveInBackground: false,
         playsInSilentModeIOS: true,
@@ -112,6 +113,9 @@ export default function Say({ navigation }: { navigation: any }) {
     );
     playback.current = sound;
     console.log('Playback loaded');
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false
+    });
     setIsRecording(false);
   }
 
@@ -162,7 +166,7 @@ export default function Say({ navigation }: { navigation: any }) {
   };
 
   return (
-    <Center flex={1} px="5" py={Constants.statusBarHeight}>
+    <Center flex={1} px="5" py={Constants.statusBarHeight} bg="#fff8d2">
       <VStack w="100%" h="100%" alignItems="center" justifyContent="space-between">
         <HStack w="100%" justifyContent="space-between" mt="5" mb="auto">
           <IconButton onPress={() => navigation.navigate('Home')}
@@ -170,6 +174,9 @@ export default function Say({ navigation }: { navigation: any }) {
             {"Home"}
           </IconButton>
         </HStack>
+        {/* <Box marginBottom="auto">
+          <EmptyBottleIcon size="5xl" />
+        </Box> */}
         {recordingURI &&
           <VStack w="100%" alignItems="center" my="auto">
             <Heading size="xl" mb="5" textAlign="center">Listen back to your Bottle</Heading>
@@ -201,7 +208,7 @@ export default function Say({ navigation }: { navigation: any }) {
             :
             <IconButton w="125" h="100" mx="auto" mb="40" onPress={isRecording ? stopRecording : startRecording}
               iconLibrary={MaterialCommunityIcons} iconName={"record-circle"} color={isRecording ? "error.500" : ""}>
-              {isRecording ? "Stop Recording" : "Start Recording"}
+              {isRecording ? "Tap to Stop Recording" : "Tap to Start Recording"}
             </IconButton>
           }
         </HStack>

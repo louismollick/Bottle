@@ -26,7 +26,7 @@ export default function SayTagSelect({ navigation }: { navigation: any }) {
   }
 
   return (
-    <Center flex={1} px="5" py={Constants.statusBarHeight} alignItems="center" justifyContent="flex-end">
+    <Center flex={1} px="5" py={Constants.statusBarHeight} alignItems="center" justifyContent="flex-end" bg="#fff8d2">
       <HStack w="100%" justifyContent="space-between" alignSelf="flex-start">
         <IconButton onPress={() => navigation.navigate('Home')}
           iconLibrary={MaterialCommunityIcons} iconName="home">

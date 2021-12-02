@@ -16,7 +16,7 @@ export default function ListenTagSelect({ navigation }: { navigation: any }) {
   };
 
   return (
-    <Center flex={1} px="5" py={Constants.statusBarHeight}>
+    <Center flex={1} px="5" py={Constants.statusBarHeight} bg="#fff8d2">
       <VStack w="100%" h="100%" alignItems="center" justifyContent="flex-end">
         <TagSelect setTags={setTags} error={error} setError={setError}>
           {"What kind of Bottle would you like to open?"}

@@ -27,9 +27,9 @@ const TagSelect = ({ setTags, children, setError, error }: TagSelectProps) => {
                 borderWidth={1}
                 borderRadius={30}
                 flexShrink={1}
-                bg="muted.100"
+                bg="#FFFEF6"
             >
-                <ScrollView bg="muted.100">
+                <ScrollView bg="#FFFEF6">
                     <Checkbox.Group
                         accessibilityLabel="pick a tag"
                         onChange={(values) => {

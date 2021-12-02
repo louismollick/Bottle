@@ -19,7 +19,8 @@ const theme = extendTheme({
           textAlign: "center",
           color: "coolGray.700",
           fontWeight: "medium",
-        }
+        },
+        bg: "#00c4cc"
       },
     },
     Checkbox: {
@@ -31,7 +32,7 @@ const theme = extendTheme({
           fontWeight: "medium",
         }
       },
-    },
+    }
   }
 });
 

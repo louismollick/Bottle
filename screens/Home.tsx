@@ -39,7 +39,7 @@ export default function Home({ route, navigation }: { route: any, navigation: an
                 <EmptyBottleIcon size="5xl" />
               </Animated.View>
             </TouchableOpacity>
-            <Heading bold width="100" textAlign="center" fontSize="xl">{"I want to send out a bottle"}</Heading>
+            <Heading bold width="100" textAlign="center" fontSize="xl">{"Send out a bottle"}</Heading>
           </VStack>
           <VStack alignItems="center">
             <TouchableOpacity
@@ -53,7 +53,7 @@ export default function Home({ route, navigation }: { route: any, navigation: an
                 <FilledBottleIcon size="5xl" />
               </Animated.View>
             </TouchableOpacity>
-            <Heading bold width="100" textAlign="center" fontSize="xl">{"I want to pick up a bottle"}</Heading>
+            <Heading bold width="100" textAlign="center" fontSize="xl">{"Pick up a bottle"}</Heading>
           </VStack>
 
         </HStack>
